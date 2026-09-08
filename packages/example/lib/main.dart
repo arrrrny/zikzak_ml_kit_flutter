@@ -62,7 +62,8 @@ class Home extends StatelessWidget {
                       CustomCard('Object Detection', ObjectDetectorView()),
                       CustomCard('Text Recognition', TextRecognizerView()),
                       CustomCard('Text From Widget', TextFromWidgetView()),
-                      CustomCard('Digital Ink Recognition', DigitalInkView()),
+                      if (Platform.isAndroid)
+                        CustomCard('Digital Ink Recognition', DigitalInkView()),
                       CustomCard('Pose Detection', PoseDetectorView()),
                       CustomCard('Selfie Segmentation', SelfieSegmenterView()),
                       if (Platform.isAndroid)
@@ -82,7 +83,8 @@ class Home extends StatelessWidget {
                       CustomCard(
                           'On-device Translation', LanguageTranslatorView()),
                       CustomCard('Smart Reply', SmartReplyView()),
-                      CustomCard('Entity Extraction', EntityExtractionView()),
+                      if (Platform.isAndroid)
+                        CustomCard('Entity Extraction', EntityExtractionView()),
                     ],
                   ),
                   SizedBox(

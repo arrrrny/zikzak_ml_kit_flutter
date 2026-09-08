@@ -17,7 +17,7 @@ let package = Package(
         .package(
             url: "https://github.com/arrrrny/google-mlkit-swiftpm",
             revision: "617e67690b277b7d2063c2e4f367bd0155ee79c0"
-        ),
+        )
     ],
     targets: [
         .target(
@@ -28,7 +28,7 @@ let package = Package(
                 .product(name: "MLKitTextRecognitionDevanagari", package: "google-mlkit-swiftpm"),
                 .product(name: "MLKitTextRecognitionJapanese", package: "google-mlkit-swiftpm"),
                 .product(name: "MLKitTextRecognitionKorean", package: "google-mlkit-swiftpm"),
-                .product(name: "google-mlkit-commons", package: "google_mlkit_commons"),
+                .product(name: "google-mlkit-commons", package: "google_mlkit_commons")
             ],
             path: "Sources/google_mlkit_text_recognition"
         )
