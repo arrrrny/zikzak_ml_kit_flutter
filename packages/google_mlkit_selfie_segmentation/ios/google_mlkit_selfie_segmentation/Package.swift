@@ -13,7 +13,7 @@ let package = Package(
             targets: ["google_mlkit_selfie_segmentation"])
     ],
     dependencies: [
-        .package(path: "../../../google_mlkit_commons/ios/google_mlkit_commons"),
+        .package(name: "google_mlkit_commons", path: "../google_mlkit_commons"),
         .package(
             url: "https://github.com/arrrrny/google-mlkit-swiftpm",
             revision: "5fc6c1441035529f40d9683b37b1f9374f35c3af"
