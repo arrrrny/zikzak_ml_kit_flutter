@@ -2,7 +2,7 @@ import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:google_mlkit_text_recognition/google_mlkit_text_recognition.dart';
 
-late List<CameraDescription> _cameras;
+List<CameraDescription> _cameras = [];
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -31,12 +31,16 @@ class CameraTextRecognitionScreen extends StatefulWidget {
   const CameraTextRecognitionScreen({super.key});
 
   @override
-  State<CameraTextRecognitionScreen> createState() => _CameraTextRecognitionScreenState();
+  State<CameraTextRecognitionScreen> createState() =>
+      _CameraTextRecognitionScreenState();
 }
 
-class _CameraTextRecognitionScreenState extends State<CameraTextRecognitionScreen> {
+class _CameraTextRecognitionScreenState
+    extends State<CameraTextRecognitionScreen> {
   CameraController? _cameraController;
-  final TextRecognizer _recognizer = TextRecognizer(script: TextRecognitionScript.latin);
+  final TextRecognizer _recognizer = TextRecognizer(
+    script: TextRecognitionScript.latin,
+  );
   String _recognizedText = '';
   bool _isProcessing = false;
   bool _cameraReady = false;
@@ -50,11 +54,16 @@ class _CameraTextRecognitionScreenState extends State<CameraTextRecognitionScree
 
   Future<void> _initCamera() async {
     if (_cameras.isEmpty) {
-      setState(() => _errorMessage = 'No camera available');
+      // Assigned directly: initState runs during build, where setState is
+      // illegal, and the first build below already reads this field.
+      _errorMessage = 'No camera available';
       return;
     }
     try {
-      final controller = CameraController(_cameras.first, ResolutionPreset.medium);
+      final controller = CameraController(
+        _cameras.first,
+        ResolutionPreset.medium,
+      );
       await controller.initialize();
       setState(() {
         _cameraController = controller;
@@ -104,27 +113,38 @@ class _CameraTextRecognitionScreenState extends State<CameraTextRecognitionScree
                 ? Center(
                     child: Padding(
                       padding: const EdgeInsets.all(16),
-                      child: Text(_errorMessage!, style: const TextStyle(color: Colors.red, fontSize: 16)),
+                      child: Text(
+                        _errorMessage!,
+                        style: const TextStyle(color: Colors.red, fontSize: 16),
+                      ),
                     ),
                   )
                 : _cameraReady
-                    ? CameraPreview(_cameraController!)
-                    : const Center(child: CircularProgressIndicator()),
+                ? CameraPreview(_cameraController!)
+                : const Center(child: CircularProgressIndicator()),
           ),
           // Capture button
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 12),
             child: ElevatedButton.icon(
-              onPressed: (_isProcessing || !_cameraReady) ? null : _captureAndRecognize,
+              onPressed: (_isProcessing || !_cameraReady)
+                  ? null
+                  : _captureAndRecognize,
               icon: _isProcessing
                   ? const SizedBox(
-                      width: 18, height: 18,
+                      width: 18,
+                      height: 18,
                       child: CircularProgressIndicator(strokeWidth: 2),
                     )
                   : const Icon(Icons.camera_alt),
-              label: Text(_isProcessing ? 'Recognizing...' : 'Capture & Recognize'),
+              label: Text(
+                _isProcessing ? 'Recognizing...' : 'Capture & Recognize',
+              ),
               style: ElevatedButton.styleFrom(
-                padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 14),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 32,
+                  vertical: 14,
+                ),
               ),
             ),
           ),
