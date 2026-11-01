@@ -16,7 +16,7 @@ let package = Package(
         .package(name: "google_mlkit_commons", path: "../google_mlkit_commons"),
         .package(
             url: "https://github.com/arrrrny/google-mlkit-swiftpm",
-            revision: "182c368b37b99fe038f139171e718904645f3b93b"
+            revision: "e656a69ce31ec975fd83f0655bb5c6671c2e08ee"
         ),
     ],
     targets: [
