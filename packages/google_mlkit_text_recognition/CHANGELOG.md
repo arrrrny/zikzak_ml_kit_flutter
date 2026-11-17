@@ -1,3 +1,55 @@
+## 1.0.4
+
+Upstream 1.0.3 verbatim + one manifest fix: declare the four non-Latin
+MLKitTextRecognition script products (Chinese, Devanagari, Japanese,
+Korean) as target dependencies. Upstream kept the plugin's
+`#if canImport(...)` script guards while dropping the product
+declarations, and in the Xcode/SwiftPM integration a target can import
+sibling products of a resolved package — the guards evaluate TRUE, the
+branches compile in, and the containing app's link fails with
+`Undefined symbol: _OBJC_CLASS_$_MLKKoreanTextRecognizerOptions` (and
+the other three scripts) even for Latin-only apps. See
+arrrrny/zik_zak issue for the misfire report.
+
+## 1.0.3
+
+* Bump `google-mlkit-swiftpm` to `9.0.3` to resolve dependency conflicts with `firebase-ios-sdk` 13 (issue #919).
+* Update `google_mlkit_commons` dependency to `^1.0.3`.
+
+## 1.0.2
+
+* Add `FlutterFramework` dependency to the Swift package manifest for Flutter Swift Package Manager compatibility (issue #916).
+* Bump Android Gradle Plugin (AGP) classpath to 9.1.0 to remove vulnerable transitive `netty` dependency from the build classpath.
+* Update `google_mlkit_commons` dependency to `^1.0.2`.
+
+## 1.0.1
+
+* Fix iOS build for apps installing the plugin from pub.dev: the Swift package manifest no longer references `google_mlkit_commons` via a relative path that does not exist in the published layout (see issue #912). The small shared helpers are now bundled directly with the plugin, and no `google_mlkit_commons` Swift package dependency is required.
+* Note: apps using Swift Package Manager for plugins must set their iOS deployment target to at least 15.0.
+* Update `google_mlkit_commons` dependency to `^1.0.1`.
+
+## 1.0.0
+
+* Migrate iOS plugin from CocoaPods to Swift Package Manager (`d-date/google-mlkit-swiftpm` `9.0.2`), linking the base Latin text recognition library by default.
+* Update `google_mlkit_commons` dependency to `^1.0.0`.
+* Update documentation.
+
+## 0.17.1
+
+* Update `google_mlkit_commons` dependency to `^0.13.0`.
+
+## 0.17.0
+
+* Migrate Android plugin build to AGP built-in Kotlin support (`compilerOptions`)
+* Bump minimum Flutter SDK constraint to >=3.44.0 and Dart SDK to ^3.12.0
+
+## 0.16.0
+
+* Migrate Android implementation from Java to Kotlin.
+* Migrate iOS implementation from Objective-C to Swift.
+* Bump Android compileSdk to 36 for AGP 9 compatibility.
+* Enable support for Apple Silicon simulator on iOS 26+.
+
 ## 0.15.1
 
 * Update Android native library `com.google.mlkit:text-recognition` to 16.0.1
